@@ -1,0 +1,28 @@
+body{
+	background-image: url("../img/bg.jpg");
+	background-repeat: repeat;
+	color: #ddd;
+}
+
+.jumbotron, .panel, .list-group-item{
+	background-color: rgba(0,0,0,0);
+}
+
+a {
+	text-decoration: none;
+	color: #ddd;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.breadcrumb{
+	background-image: linear-gradient(to bottom,#3c3c3c 0,#222 100%);
+}
+
+@media (max-width : 768px){
+	.navbar-nav{
+		display:flex;
+	}
+}
