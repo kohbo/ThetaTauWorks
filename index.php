@@ -48,17 +48,6 @@ sec_session_start();
 					<li><a href="?p=submit">Submit</a></li>
 					<li><a href="#">Stats</a></li>
 				</ul>
-			
-		
-		<!--  
-		<a href="http://kohding.net/thetatauworks/" class="navbar-brand">Theta
-			Tau Works</a>
-		<ul class="nav navbar-nav">
-			<li><a href="?p=browse">Browse</a></li>
-			<li><a href="?p=submit">Submit</a></li>
-			<li><a href="#">Stats</a></li>
-		</ul>
-		-->
 
 			<?php if(login_check($mysqli) == true) : ?>
 			<div class="navbar-right">
@@ -73,14 +62,7 @@ sec_session_start();
                  </ul>
 			  </li>   
 			</ul>
-			
-			<!-- <div class="btn-group navbar-btn">
-				<button type="button" class="dropdown-toggle btn btn-primary"
-					data-toggle="dropdown" id="settings">Settings</button>
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="logout.php">Logout</a></li>
-				</ul>
-			</div> -->
+
 		</div>
 		</div>
 		</div>
