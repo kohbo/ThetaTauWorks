@@ -29,27 +29,64 @@ sec_session_start();
 
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<!-- New NavBar -->
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#menu-data">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a href="http://kohding.net/thetatauworks/" class="navbar-brand">Theta
+					Tau Works</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="menu-data">
+				<ul class="nav navbar-nav">
+					<li><a href="?p=browse">Browse</a></li>
+					<li><a href="?p=submit">Submit</a></li>
+					<li><a href="#">Stats</a></li>
+				</ul>
+			
+		
+		<!--  
 		<a href="http://kohding.net/thetatauworks/" class="navbar-brand">Theta
 			Tau Works</a>
 		<ul class="nav navbar-nav">
-		
-		<?php if(isMobile()) : ?>
-		    <li><a href="?p=browse"><span class="glyphicon glyphicon-search"></span></a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-pencil"></span></a></li>
-		<?php else : ?>
 			<li><a href="?p=browse">Browse</a></li>
 			<li><a href="?p=submit">Submit</a></li>
 			<li><a href="#">Stats</a></li>
-		<?php endif; ?>
 		</ul>
-		
+		-->
 
 			<?php if(login_check($mysqli) == true) : ?>
-			<p class="navbar-text navbar-right"
-			style="margin-right: 15px; margin-left: 15px;">Logged in as <?php echo $_SESSION['username']; ?> <a
-				href="logout.php">(Logout)</a>
-		</p>
+			<div class="navbar-right">
+			<?php if(!isMobile()):?>
+			<p class="navbar-text">Welcome, <?php echo $_SESSION['username']; ?></p>
+			<?php endif;?>
+			<ul class="nav navbar-nav">
+			  <li class="dropdown">
+			     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings <span class="caret"></span></a>
+                 <ul class="dropdown-menu" role="menu">
+                    <li><a href="logout.php">Logout</a></li>
+                 </ul>
+			  </li>   
+			</ul>
+			
+			<!-- <div class="btn-group navbar-btn">
+				<button type="button" class="dropdown-toggle btn btn-primary"
+					data-toggle="dropdown" id="settings">Settings</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="logout.php">Logout</a></li>
+				</ul>
+			</div> -->
+		</div>
+		</div>
+		</div>
+			
 			<?php else : ?>
+			
 			<form action="process_login.php" method="post" name="login_form"
 			class="navbar-form navbar-right">
 			<input type="text" name="email" class="form-control"
@@ -67,7 +104,7 @@ sec_session_start();
 		  <?php if(isset($_GET['error'])){ include "error.php";  }?>
 		  <?php
     
-if (isset($_GET['p'])) {
+    if (isset($_GET['p'])) {
         include $_GET['p'] . ".php";
     } else {
         include "index_landing.php";
