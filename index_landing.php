@@ -21,7 +21,7 @@ include_once 'includes/functions.php';
 	</div>
     <table class="table">
     <tr>
-        <th>Type</th>
+        <th class="hidden-xs">Type</th>
         <th>Posted</th>
     	<th>Company</th>
     	<th>Position</th>
@@ -32,7 +32,7 @@ include_once 'includes/functions.php';
     $result = $mysqli -> query("SELECT jobid, submitted, company, position, type FROM tbljobs ORDER BY submitted desc LIMIT 2");
     
     while(($row = $result -> fetch_assoc()) != false){
-    	echo "<tr><td>".label_type($row['type'])."</td><td>".
+    	echo "<tr><td class='hidden-xs'>".label_type($row['type'])."</td><td>".
     	   	substr($row['submitted'],0,10)."</td><td>".
     	    $row['company']."</td><td>".$row['position'].
     	    "</td><td><a href='index.php?p=details&id=".$row['jobid']."'>View Details</a></td></tr>";

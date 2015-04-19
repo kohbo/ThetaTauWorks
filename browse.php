@@ -13,7 +13,7 @@ echo "<ol class='breadcrumb'>
 
 <table class="table">
 <tr>
-    <th>Type</th>
+    <th class="hidden-xs">Type</th>
     <th>Posted</th>
 	<th>Company</th>
 	<th>Position</th>
@@ -27,7 +27,7 @@ ON brothercontact = ID
 ORDER BY submitted desc");
 
 while(($row = $result -> fetch_assoc()) != false){
-	echo "<tr><td>".label_type($row['type'])."</td><td>".
+	echo "<tr><td class='hidden-xs'>".label_type($row['type'])."</td><td>".
 	   	substr($row['submitted'],0,10)."</td><td>".
 	    $row['company']."</td><td>".$row['position'].
 	    "</td><td><a href='./?p=details&id=".$row['jobid']."'>View Details</a></td></tr>";

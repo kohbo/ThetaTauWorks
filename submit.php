@@ -52,9 +52,9 @@ if ($success == true) {
         <label for="location">Location</label>
         <input type="text" id="location" name="location" placeholder="Job Location" class="form-control" />
     </div>
-    <div class="checkbox disabled">
+    <div class="checkbox">
         <label>
-        <input type="checkbox" id="mail" name="mail" disabled />
+        <input type="checkbox" id="mail" name="mail"/>
         Send to OG Mail List</label>
     </div>
     <input type="button" value="Submit" class="btn btn-success" onclick="return validateform(this.form)" />
