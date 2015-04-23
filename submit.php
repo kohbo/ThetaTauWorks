@@ -10,6 +10,15 @@ if (!empty($error_msg)) {
 }
 if ($success == true) {
     echo '<div class="alert alert-success" role="alert">Opportunity successfully submitted.</div>';
+    
+    echo '<script>
+            function redirect(){ 
+                window.location.replace("?p=browse");
+            };
+            if(window.document.readyState == "interactive"){
+                alert("Hello");
+            }     
+        </script>'; 
 }
 ?>
 
@@ -50,7 +59,7 @@ if ($success == true) {
     </div>
     <div class="form-group">
         <label for="location">Location</label>
-        <input type="text" id="location" name="location" placeholder="Job Location" class="form-control" />
+        <input type="text" id="location" name="location" placeholder="Opportunity Location" class="form-control" />
     </div>
     <div class="checkbox">
         <label>

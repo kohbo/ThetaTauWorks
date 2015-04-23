@@ -36,9 +36,7 @@ if(true){
         if($stmt -> execute()){
             $success = true;
         }
-        $stmt -> close();
         
-        $bro_stmt -> close();
         
         if($_POST['mail'] == 'on'){
             $mail = new PHPMailer;
@@ -57,15 +55,29 @@ if(true){
             
             $mail -> From = 'thetatauworksbot@thetatauworks.com';
             $mail -> FromName = 'TT Works Bot';
-            $mail -> addAddress('kohbosan@gmail.com');
+//             $mail -> addAddress('kohbosan@gmail.com');
+            $mail -> addAddress('theta-tau-omega-gamma@googlegroups.com');
             
-            $mail -> Subject = 'New Opportunity Posting';
-            $mail -> Body = 'A new posting has been added to Theta Tau Works by '. $fname .' '. $lname;
+            $mail -> Subject = 'New Theta Tau Works Post';
+            
+            $body = '<p><h2>This is automated message, do not reply to this e-mail.<h2></p>';
+            $body .= '<p>A new posting has been added to Theta Tau Works by '. $fname .' '. $lname;
+            if($_POST['company'] != 'Not Provided'){
+                $body .= " for a position with " . $_POST['company'] . '.</p>';
+            } else {
+                $body .= '.</p>';
+            }          
+            $body .= '<p>More details can be found <a href="http://kohding.net/thetatauworks/index.php?p=details&id='.$stmt->insert_id.'">here</a>.</p>';
+            $mail -> msgHTML($body);
             
             if(!$mail -> send()){
                 $error_msg .= "Mailer Error: " . $mail -> ErrorInfo;
             }
         }
+        
+        //close connections
+        $stmt -> close();
+        $bro_stmt -> close();
         
     } else {
         $error_msg .= "Database connection error.";
