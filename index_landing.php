@@ -17,7 +17,7 @@ include_once 'includes/functions.php';
 
 	<h1>Hello <?php echo $_SESSION['username']; ?>!</h1>
 	<div>
-	   <h2>Recent Posts</h2>
+	   <h2>Recent Posts<span class="pull-right"><?php echo $mysqli->query("SELECT COUNT(*) FROM tbljobs")->fetch_assoc()['COUNT(*)']; ?> Opportunities Available</span></h2>
 	</div>
     <table class="table">
     <tr>
@@ -29,7 +29,7 @@ include_once 'includes/functions.php';
     </tr>
     
     <?php
-    $result = $mysqli -> query("SELECT jobid, submitted, company, position, type FROM tbljobs ORDER BY submitted desc LIMIT 2");
+    $result = $mysqli -> query("SELECT jobid, submitted, company, position, type FROM tbljobs ORDER BY submitted desc LIMIT 4");
     
     while(($row = $result -> fetch_assoc()) != false){
     	echo "<tr><td class='hidden-xs'>".label_type($row['type'])."</td><td>".
@@ -40,7 +40,7 @@ include_once 'includes/functions.php';
     ?>
     
     </table>
-	<p>Please click browse in the navbar to view all opportunities available. Submissions are disabled for the time being.</p>
+	<p>Please click browse in the navbar to view all opportunities available.</p>
 
 <?php endif; ?>
 

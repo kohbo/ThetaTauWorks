@@ -14,6 +14,9 @@ sec_session_start();
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Theta Tau Works</title>
 
+<link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" /> 
+
 <!-- BootStrap CDN Files -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
@@ -55,12 +58,8 @@ sec_session_start();
 			<p class="navbar-text">Welcome, <?php echo $_SESSION['username']; ?></p>
 			<?php endif;?>
 			<ul class="nav navbar-nav">
-			  <li class="dropdown">
-			     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings <span class="caret"></span></a>
-                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="logout.php">Logout</a></li>
-                 </ul>
-			  </li>   
+                <li><a href="#">Profile</a></li>
+                <li><a href="logout.php">Logout</a></li>
 			</ul>
 
 		</div>
