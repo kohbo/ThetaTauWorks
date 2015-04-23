@@ -38,6 +38,9 @@ while(($row = $result -> fetch_assoc()) != false){
 
 <?php else : ?>
 
-<p>You must be logged in to see this page. Only brothers of Theta Tau can use this website.</p> 
+    <div class="jumbotron">
+	<p>You must log in to see this page.</p>
+	<p>Question/Suggestions? Contact me at <a href="mailto:kohdingn@kohding.net" target="_blank">kohdingn@kohding.net</a></p>
+    </div>
 
 <?php endif; ?>

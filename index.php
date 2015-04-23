@@ -58,7 +58,7 @@ sec_session_start();
 			<p class="navbar-text">Welcome, <?php echo $_SESSION['username']; ?></p>
 			<?php endif;?>
 			<ul class="nav navbar-nav">
-                <li><a href="#">Profile</a></li>
+                <li><a href="?p=profile">Profile</a></li>
                 <li><a href="logout.php">Logout</a></li>
 			</ul>
 
@@ -68,7 +68,7 @@ sec_session_start();
 			
 			<?php else : ?>
 			
-			<form action="process_login.php" method="post" name="login_form"
+			<form action=<?php echo 'process_login.php?p=',$_GET['p'];?> method="post" name="login_form"
 			class="navbar-form navbar-right">
 			<input type="text" name="email" class="form-control"
 				placeholder="Email" /> <input type="password" name="password"
@@ -85,7 +85,7 @@ sec_session_start();
 		  <?php if(isset($_GET['error'])){ include "error.php";  }?>
 		  <?php
     
-    if (isset($_GET['p'])) {
+    if (isset($_GET['p']) and  $_GET['p'] != '') {
         include $_GET['p'] . ".php";
     } else {
         include "index_landing.php";
@@ -104,9 +104,19 @@ sec_session_start();
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 
 <!-- BootStrap CDN -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 <!-- Scripts -->
 <?php include_once 'includes/analytics.php'; ?>
+<?php if($_GET['p'] == 'profile'): ?>
+    <script>
+    $(document).ready(function(){
+        $("#sub_email").change(function(){
+     	   $.post("change_sub.php", 
+     	     	  {checked : this.checked},
+     	     	  function(data, status){ alert(data); });
+    	});
+    });
+    </script>
+<?php endif; ?>
 </html>

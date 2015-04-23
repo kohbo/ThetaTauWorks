@@ -23,56 +23,66 @@ if(true){
         
         $userid = $_SESSION['user_id'];
         
-        $bro_sql = "SELECT roll, fname, lname FROM memberidView WHERE user_id = ?";
+        //Translate user_id into bro id
+        $bro_sql = "SELECT broID, fname, lname FROM memberidView WHERE user_id = ?";
         
         $bro_stmt = $mysqli -> prepare($bro_sql);
         $bro_stmt -> bind_param("i", $userid);
         $bro_stmt -> execute();
         $bro_stmt -> store_result();
-        $bro_stmt -> bind_result($roll, $fname, $lname);
+        $bro_stmt -> bind_result($broID, $fname, $lname);
         $bro_stmt -> fetch();
         
-        $stmt -> bind_param('ssssssi',$_POST['company'],$_POST['position'],$_POST['type'],$_POST['contact'],$_POST['information'],$_POST['location'],$roll);
+        //Bind to insert statement
+        $stmt -> bind_param('ssssssi',$_POST['company'],$_POST['position'],$_POST['type'],$_POST['contact'],$_POST['information'],$_POST['location'],$broID);
         if($stmt -> execute()){
             $success = true;
         }
         
         
-        if($_POST['mail'] == 'on'){
-            $mail = new PHPMailer;
+        $mail = new PHPMailer;
+        
+        $mail -> isSMTP();
             
-            $mail -> isSMTP();
+//      $mail -> SMTPDebug = 2;
+//      $mail->Debugoutput = 'html';
             
-//             $mail -> SMTPDebug = 2;
-//             $mail->Debugoutput = 'html';
+        $mail -> Host = 'smtp.gmail.com';
+        $mail -> SMTPAuth =  true;
+        $mail -> Username = 'kohbosan@gmail.com';
+        $mail -> Password = 'aftsiglopas';
+        $mail -> SMTPSecure = 'tls';
+        $mail -> Port = 587;
+        
+        $mail -> From = 'thetatauworksbot@thetatauworks.com';
+        $mail -> FromName = 'TT Works Bot';
+
+        //Get list of e-mails to add
+        $email_stmt = $mysqli -> prepare("SELECT email FROM memberidView WHERE email_sub = 1");
+        $email_stmt -> execute();
+        $email_stmt -> bind_result($bro_email);
+        while($email_stmt -> fetch()){
+            $mail -> addAddress($bro_email);
+        }
+        $email_stmt -> close();
+//      $mail -> addAddress('theta-tau-omega-gamma@googlegroups.com');
+//      $mail -> addAddress('kohbosan@gmail.com');
             
-            $mail -> Host = 'smtp.gmail.com';
-            $mail -> SMTPAuth =  true;
-            $mail -> Username = 'kohbosan@gmail.com';
-            $mail -> Password = 'aftsiglopas';
-            $mail -> SMTPSecure = 'tls';
-            $mail -> Port = 587;
-            
-            $mail -> From = 'thetatauworksbot@thetatauworks.com';
-            $mail -> FromName = 'TT Works Bot';
-//             $mail -> addAddress('kohbosan@gmail.com');
-            $mail -> addAddress('theta-tau-omega-gamma@googlegroups.com');
-            
-            $mail -> Subject = 'New Theta Tau Works Post';
-            
-            $body = '<p><h2>This is automated message, do not reply to this e-mail.<h2></p>';
-            $body .= '<p>A new posting has been added to Theta Tau Works by '. $fname .' '. $lname;
-            if($_POST['company'] != 'Not Provided'){
-                $body .= " for a position with " . $_POST['company'] . '.</p>';
-            } else {
-                $body .= '.</p>';
-            }          
-            $body .= '<p>More details can be found <a href="http://kohding.net/thetatauworks/index.php?p=details&id='.$stmt->insert_id.'">here</a>.</p>';
-            $mail -> msgHTML($body);
-            
-            if(!$mail -> send()){
-                $error_msg .= "Mailer Error: " . $mail -> ErrorInfo;
-            }
+        $mail -> Subject = 'New Theta Tau Works Post';
+        
+        $body = '<p><h2>This is automated message, do not reply to this e-mail.<h2></p>';
+        $body .= '<p>A new posting has been added to Theta Tau Works by '. $fname .' '. $lname;
+        if($_POST['company'] != 'Not Provided'){
+            $body .= " for a position with " . $_POST['company'] . '.</p>';
+        } else {
+            $body .= '.</p>';
+        }          
+        $body .= '<p>More details can be found <a href="http://kohding.net/thetatauworks/index.php?p=details&id='.$stmt->insert_id.'">here</a>.</p>';
+        $body .= '<p><a href="kohding.net/thetatauworks/?p=profile" target="_blank">Modify Subscription Settings</a></p>';
+        $mail -> msgHTML($body);
+        
+        if(!$mail -> send()){
+            $error_msg .= "Mailer Error: " . $mail -> ErrorInfo;
         }
         
         //close connections

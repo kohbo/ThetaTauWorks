@@ -11,7 +11,7 @@ include_once 'includes/functions.php';
 	<h1>Hello!</h1>
 	<p>This site is a work in progress.</p>
 	<p>If you are a brother of Theta Tau Omega Gamma chapter, please register in order to view the opportunities available.</p>
-	<p>Question? Contact me at <a href="mailto:kohdingn@kohding.net" target="_blank">kohdingn@kohding.net</a></p>
+	<p>Question/Suggestions? Contact me at <a href="mailto:kohdingn@kohding.net" target="_blank">kohdingn@kohding.net</a></p>
 
 <?php else : ?>
 

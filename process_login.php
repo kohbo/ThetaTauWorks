@@ -10,7 +10,7 @@ if (isset($_POST['email'], $_POST['p'])) {
  
     if (login($email, $password, $mysqli) == true) {
         // Login success 
-        header('Location: ./');
+        header('Location: ./?p='.$_GET['p']);
     } else {
         // Login failed 
         header('Location: ./?error=1');

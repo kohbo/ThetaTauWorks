@@ -2,8 +2,13 @@
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 include_once 'includes/process_submit.php';
-
 // sec_session_start();
+
+echo "<ol class='breadcrumb'>
+        <li><a href='index.php'>Home</a></li>
+        <li>Submit</li>
+      </ol>
+    ";
 
 if (!empty($error_msg)) {
     echo '<div class="alert alert-warning" role="alert">'.$error_msg.'</div>';
@@ -24,7 +29,7 @@ if ($success == true) {
 
 <?php if(login_check($mysqli) == true) : ?>
 
-<h1>New Opportunity</h1>
+<div class="col-md-7 col-md-offset-3">
 <form name="new_opp_form" method="POST" action="?p=submit">
     <div class="form-group">
         <label for="company">Company</label>
@@ -61,17 +66,16 @@ if ($success == true) {
         <label for="location">Location</label>
         <input type="text" id="location" name="location" placeholder="Opportunity Location" class="form-control" />
     </div>
-    <div class="checkbox">
-        <label>
-        <input type="checkbox" id="mail" name="mail"/>
-        Send to OG Mail List</label>
-    </div>
     <input type="button" value="Submit" class="btn btn-success" onclick="return validateform(this.form)" />
 </form>
+</div>
 <script src="js/submit_form.js"></script>
 
 <?php else : ?>
 
-<p>You must be logged in to see this page. Only brothers of Theta Tau can use this website.</p> 
+    <div class="jumbotron">
+	<p>You must log in to see this page.</p>
+	<p>Question/Suggestions? Contact me at <a href="mailto:kohdingn@kohding.net" target="_blank">kohdingn@kohding.net</a></p>
+    </div>
 
 <?php endif; ?>
